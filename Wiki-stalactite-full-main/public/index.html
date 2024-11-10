@@ -1,0 +1,526 @@
+<html><head><base href="https://pokemon-stalactite.fr/">
+<meta charset="utf-8">
+<meta name="description" content="Pokémon Stalactite est un fangame français développé indépendamment par un fan de la licence, ce projet est donc non lucratif et affilié à Nintendo.">
+<meta name="keywords" content="Pokémon Stalactite, pokemon stalactite, PSDK, pokemon stalactite fangame, stalactite fangame, fangame fr">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link rel="icon" type="image/png" href="https://files.cdn-files-a.com/uploads/9436323/400_filter_nobg_668d2d6fdb252.png">
+<title>Pokémon Stalactite</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
+  --dark-color: #34495e;
+  --light-color: #ecf0f1;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light-color);
+}
+
+.navbar {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.navbar-brand img {
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.1);
+}
+
+.nav-link {
+    position: relative;
+    color: var(--dark-color) !important;
+}
+
+.chat-container {
+            max-height: 400px; /* Limite la hauteur du chat */
+            overflow-y: auto; /* Ajoute le défilement vertical */
+            margin-top: 20px; /* Ajout d'un peu d'espace en haut */
+            border: 1px solid var(--primary-color); /* Bordure pour délimiter le chat */
+            border-radius: 10px;
+            padding: 10px;
+            background-color: white;
+        }
+
+        .chat-message {
+            padding: 10px;
+            border-radius: 10px;
+            margin: 5px 0;
+        }
+
+        .chat-message.user {
+            background-color: #d1e7dd; /* Couleur de fond pour les messages de l'utilisateur */
+            align-self: flex-end; /* Aligne les messages de l'utilisateur à droite */
+        }
+
+        .chat-message.other {
+            background-color: #f8d7da; /* Couleur de fond pour les messages des autres */
+            align-self: flex-start; /* Aligne les messages des autres à gauche */
+        }
+  
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+.hero-section {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://files.cdn-files-a.com/uploads/9436323/2000_668d2d5bb123c.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.section-title {
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    color: var(--dark-color);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.btn-custom {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-custom:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-custom i {
+    margin-left: 10px;
+    font-size: 1.2rem;
+}
+
+.social-icon {
+    color: var(--light-color);
+    font-size: 1.5rem;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+    color: var(--primary-color);
+}
+
+.devlog-entry {
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.devlog-entry:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.devlog-date {
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.devlog-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.devlog-content {
+  font-size: 1rem;
+}
+
+.btn-outline-primary, .btn-outline-danger, .btn-outline-dark {
+  width: 100%;
+  max-width: 200px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover, .btn-outline-danger:hover, .btn-outline-dark:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#"><img src="https://files.cdn-files-a.com/uploads/9436323/400_filter_nobg_668d2d6fdb252.png" alt="Pokémon Stalactite" height="50"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#about">À propos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#synopsis">Synopsis</a></li>
+        <li class="nav-item"><a class="nav-link" href="#heroes">Les Héros</a></li>
+        <li class="nav-item"><a class="nav-link" href="#starters">Les Starters</a></li>
+        <li class="nav-item"><a class="nav-link" href="#images">Images</a></li>
+        <li class="nav-item"><a class="nav-link" href="#devlog">DevLog</a></li>
+        <li class="nav-item"><a class="nav-link" href="#reseaux">Réseaux</a></li>
+        <li class="nav-item"><a class="nav-link" href="#public-chat">Public Chat</a></li>      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="hero-section vh-100 d-flex align-items-center text-white">
+  <div class="container text-center">
+    <h1 class="display-1 mb-4 fw-bold">Pokémon Stalactite</h1>
+    <p class="lead mb-5">Plongez dans la petite région de Citados en compagnie de vos Pokémon...</p>
+    <a href="#about" class="btn btn-custom btn-lg">
+        Découvrir l'aventure
+        <i class="fas fa-chevron-right"></i>
+    </a>
+  </div>
+</header>
+
+<section id="about" class="py-5">
+  <div class="container">
+    <h2 class="section-title text-center mb-5">À Propos</h2>
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <img src="https://files.cdn-files-a.com/uploads/9436323/800_668d31dbf00cf.png" alt="À Propos" class="img-fluid rounded-3 shadow-lg">
+      </div>
+      <div class="col-lg-6 mt-4 mt-lg-0">
+        <p class="lead">Pokémon Stalactite est un fangame français développé sous <strong>PSDK</strong> et <strong>Pokémon Studio</strong>, qui a pour but de <strong>satisfaire</strong> les fans de cette licence en leur offrant une expérience de jeu inoubliable.</p>
+        <p><em>Spoiler</em> : notamment au Chapitre 2 <em>(qui n'est pas encore sorti).</em></p>
+        <p>Ce fangame est toujours <strong>en cours de développement</strong>, créé indépendamment par Yusiki.</p>
+        <p>Pokémon Stalactite est un projet <strong>non lucratif</strong> et <strong>non affilié</strong> à Game Freak et Nintendo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="synopsis" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="section-title text-center mb-5">Synopsis</h2>
+    <div class="row align-items-center">
+      <div class="col-lg-6 order-lg-2">
+        <img src="https://files.cdn-files-a.com/uploads/9436323/800_668d34e1058e0.png" alt="Synopsis" class="img-fluid rounded-3 shadow-lg">
+      </div>
+      <div class="col-lg-6 order-lg-1 mt-4 mt-lg-0">
+        <p class="lead">Incarnez un jeune garçon ou une jeune fille, originaire du Bourg Kona, situé à l'ouest de la petite région de Citados où humains et Pokémon vivent en paix et en harmonie. Dans cette belle région, la neige tombe en abondance toute l'année.</p>
+        <p>Un jour, le Professeur Yusiki vous propose de partir en voyage à la conquête des 9 badges de la région. Choisissez votre premier compagnon pour débuter votre aventure aussi palpitante qu'extraordinaire !</p>
+        <p>Mais... La Team Yunaï vous barrera la route à de nombreuses reprises ! On en sait très peu de cette mystérieuse organisation, bien que des rumeurs disent qu'elle rechercherait une mystérieuse forme régionale d'Evoli... Mais pour de mauvaises intentions...</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="heroes" class="py-5">
+  <div class="container">
+    <h2 class="section-title text-center mb-5">Les Héros</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-5 mb-4">
+        <div class="card h-100">
+          <img src="https://files.cdn-files-a.com/uploads/9436323/400_668d35c0c2b0e_filter_668d39508ee27.png" class="card-img-top" alt="Garçon">
+          <div class="card-body text-center">
+            <h5 class="card-title">Garçon</h5>
+            <p class="card-text">Protagoniste</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 mb-4">
+        <div class="card h-100">
+          <img src="https://files.cdn-files-a.com/uploads/9436323/400_668d361e17e18_filter_668d396509238.png" class="card-img-top" alt="Fille">
+          <div class="card-body text-center">
+            <h5 class="card-title">Fille</h5>
+            <p class="card-text">Protagoniste</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="starters" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="section-title text-center mb-5">Les Starters</h2>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="https://files.cdn-files-a.com/uploads/9436323/400_668d381e1c55e.png" class="card-img-top" alt="Cherbi">
+          <div class="card-body text-center">
+            <h5 class="card-title">Cherbi</h5>
+            <p class="card-text">Type plante/glace</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="https://files.cdn-files-a.com/uploads/9436323/400_668d389e4e2d0.png" class="card-img-top" alt="Feuriglou">
+          <div class="card-body text-center">
+            <h5 class="card-title">Feuriglou</h5>
+            <p class="card-text">Type feu/glace</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="https://files.cdn-files-a.com/uploads/9436323/400_668d3921312e8.png" class="card-img-top" alt="Geloutre">
+          <div class="card-body text-center">
+            <h5 class="card-title">Geloutre</h5>
+            <p class="card-text">Type eau/glace</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="images" class="py-5">
+  <div class="container">
+    <h2 class="section-title text-center mb-5">Images</h2>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="https://files.cdn-files-a.com/uploads/9436323/400_668d3a4329aef.png" class="card-img-top" alt="Station de Ski">
+          <div class="card-body text-center">
+            <h5 class="card-title">Station de Ski</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="https://files.cdn-files-a.com/uploads/9436323/400_668d3a6cc1fe8.png" class="card-img-top" alt="Route 5">
+          <div class="card-body text-center">
+            <h5 class="card-title">Route 5</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="https://files.cdn-files-a.com/uploads/9436323/400_668d3af7a95bd.png" class="card-img-top" alt="Maison">
+          <div class="card-body text-center">
+            <h5 class="card-title">Maison</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="devlog" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="section-title text-center mb-5">DevLog</h2>
+    <div class="row" id="devlog-entries">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="devlog-entry">
+          <div class="devlog-date">17/10/2024</div>
+          <h3 class="devlog-title">Mise à jour du site</h3>
+          <p class="devlog-content">Le site est désormais accessible via l'adresse <a href="https://pokemon-stalactite.fr/">https://pokemon-stalactite.fr/</a>. De futures mises-à-jour sont prévues.</p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="devlog-entry">
+          <div class="devlog-date">05/10/2024</div>
+          <h3 class="devlog-title">Divers changements</h3>
+          <p class="devlog-content">Refonte de l'intro du jeu et début du montage d'un potentiel nouveau trailer...</p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="devlog-entry">
+          <div class="devlog-date">05/10/2024</div>
+          <h3 class="devlog-title">Mise à jour du site</h3>
+          <p class="devlog-content">Ajoût de la section "DevLog" sur le site. Vous pourrez suivre ici toutes les avancées du développement du jeu.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+    
+<section id="reseaux" class="py-5">
+  <div class="container">
+    <h2 class="section-title text-center mb-5">Réseaux</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-4 mb-4 text-center">
+        <a href="https://discord.gg/44uvRcuSuq" target="_blank" class="btn btn-lg btn-outline-primary">
+          <i class="fab fa-discord me-2"></i>Discord
+        </a>
+      </div>
+      <div class="col-md-4 mb-4 text-center">
+        <a href="https://www.youtube.com/@Yusiki_" target="_blank" class="btn btn-lg btn-outline-danger">
+          <i class="fab fa-youtube me-2"></i>YouTube
+        </a>
+      </div>
+      <div class="col-md-4 mb-4 text-center">
+        <a href="https://x.com/@Yusiki_1" target="_blank" class="btn btn-lg btn-outline-dark">
+          <i class="fab fa-twitter me-2"></i>Twitter
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="public-chat" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Public Chat</h2>
+        <div class="chat-container" id="chat-box" style="max-height: 400px; overflow-y: auto;"></div>
+        <form id="chat-form" class="mt-3">
+            <div class="input-group">
+                <input type="text" id="message-input" class="form-control" placeholder="Entrez votre message..." required>
+                <button class="btn btn-primary" type="submit">Envoyer</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script>
+    const socket = io(); // Se connecte au serveur Node.js actuel
+    const chatBox = document.getElementById('chat-box');
+    const chatForm = document.getElementById('chat-form');
+    const messageInput = document.getElementById('message-input');
+
+    let pseudo = prompt("Entrez votre pseudo :");
+
+    function addMessageToChat(pseudo, message, isUser = false) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('chat-message', isUser ? 'user' : 'other');
+        messageElement.innerHTML = `<strong>${pseudo}</strong>: ${message}`;
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Envoie des messages du chat à tous les utilisateurs
+    socket.on('chat-message', ({ pseudo, message }) => {
+        addMessageToChat(pseudo, message);
+    });
+
+    chatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const message = messageInput.value;
+        if (message.trim() === '') return;
+
+        addMessageToChat(pseudo, message, true);
+        socket.emit('chat-message', { pseudo, message });
+
+        messageInput.value = '';
+    });
+</script>
+
+
+
+<footer class="bg-dark text-white py-4">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h5 class="mb-0">Pokémon Stalactite</h5>
+        <p class="mb-0">© Pokémon Stalactite, Yusiki, 2024</p>
+        <p class="mb-0">Projet non lucratif et affilié à Nintendo</p>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <a href="https://discord.gg/44uvRcuSuq" target="_blank" class="social-icon"><i class="fab fa-discord"></i></a>
+        <a href="https://www.youtube.com/@Yusiki_" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
+        <a href="https://x.com/@Yusiki_1" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    const navbar = document.querySelector('.navbar');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('navbar-scrolled');
+        } else {
+            navbar.classList.remove('navbar-scrolled');
+        }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+});
+
+// Function to create DevLog entries
+function createDevLogEntries() {
+  const devlogContainer = document.getElementById('devlog-entries');
+  devlogEntries.forEach(entry => {
+    const entryElement = document.createElement('div');
+    entryElement.className = 'col-lg-6 mb-4';
+    entryElement.innerHTML = `
+      <div class="devlog-entry">
+        <div class="devlog-date">${entry.date}</div>
+        <h3 class="devlog-title">${entry.title}</h3>
+        <p class="devlog-content">${entry.content}</p>
+      </div>
+    `;
+    devlogContainer.appendChild(entryElement);
+  });
+}
+
+// Call the function to create DevLog entries
+createDevLogEntries();
+</script>
+</body></html>
